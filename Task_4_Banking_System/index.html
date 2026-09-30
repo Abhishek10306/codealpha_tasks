@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Banking System</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Inter, Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #dbeafe,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #ede9fe,
+            transparent 35%
+        ),
+        #f8fafc;
+
+    color: #0f172a;
+
+    padding: 35px 20px;
+}
+
+.container {
+    width: min(1100px, 100%);
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 30px;
+
+    background: #e0e7ff;
+    color: #4338ca;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    margin-bottom: 14px;
+}
+
+.header h1 {
+    font-size: clamp(34px, 6vw, 52px);
+    letter-spacing: -1.5px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+}
+
+.sidebar,
+.content {
+    background: rgba(255,255,255,0.94);
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 50px
+        rgba(15,23,42,0.08);
+}
+
+.sidebar {
+    padding: 18px;
+    height: fit-content;
+}
+
+.nav-btn {
+    width: 100%;
+
+    text-align: left;
+
+    padding: 13px 15px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 11px;
+
+    color: #475569;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    margin-bottom: 6px;
+
+    transition: 0.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background: #eef2ff;
+    color: #4338ca;
+}
+
+.content {
+    padding: 28px;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.section h2 {
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #334155;
+}
+
+input {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(99,102,241,0.1);
+}
+
+.primary-btn {
+    border: none;
+
+    padding: 13px 20px;
+
+    border-radius: 11px;
+
+    background: #4f46e5;
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    background: #4338ca;
+}
+
+.secondary-btn {
+    border: none;
+
+    padding: 13px 20px;
+
+    border-radius: 11px;
+
+    background: #eef2ff;
+
+    color: #4338ca;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.account-card {
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #7c3aed
+        );
+
+    color: white;
+
+    border-radius: 18px;
+
+    margin-bottom: 20px;
+}
+
+.account-card small {
+    color: #ddd6fe;
+}
+
+.balance {
+    font-size: 36px;
+    font-weight: 800;
+    margin-top: 8px;
+}
+
+.account-number {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #ddd6fe;
+}
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+.info-card {
+    padding: 17px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+}
+
+.info-card small {
+    color: #64748b;
+}
+
+.info-card strong {
+    display: block;
+    margin-top: 5px;
+}
+
+.message {
+    display: none;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.message.error {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th,
+td {
+    padding: 13px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+td {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.empty {
+    text-align: center;
+    color: #94a3b8;
+    padding: 30px;
+}
+
+.footer {
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+@media (max-width: 750px) {
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<header class="header">
+
+<span class="badge">
+BANKING SYSTEM
+</span>
+
+<h1>
+Digital Banking
+</h1>
+
+<p>
+Manage accounts, deposits, withdrawals and transfers.
+</p>
+
+</header>
+
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<button
+class="nav-btn active"
+onclick="showSection('account', this)"
+>
+Account
+</button>
+
+<button
+class="nav-btn"
+onclick="showSection('deposit', this)"
+>
+Deposit
+</button>
+
+<button
+class="nav-btn"
+onclick="showSection('withdraw', this)"
+>
+Withdraw
+</button>
+
+<button
+class="nav-btn"
+onclick="showSection('transfer', this)"
+>
+Transfer
+</button>
+
+<button
+class="nav-btn"
+onclick="showSection('transactions', this)"
+>
+Transactions
+</button>
+
+</aside>
+
+
+<main class="content">
+
+<div
+id="message"
+class="message"
+></div>
+
+
+<section
+id="account"
+class="section active"
+>
+
+<h2>
+Account Overview
+</h2>
+
+<p class="subtitle">
+View your current account information.
+</p>
+
+
+<div class="account-card">
+
+<small>
+Available Balance
+</small>
+
+<div
+id="balance"
+class="balance"
+>
+₹0.00
+</div>
+
+<div class="account-number">
+Account: <span id="accountNumber">
+10000001
+</span>
+</div>
+
+</div>
+
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<small>
+Customer
+</small>
+
+<strong>
+Abhishek Kumar
+</strong>
+
+</div>
+
+<div class="info-card">
+
+<small>
+Account Type
+</small>
+
+<strong>
+Savings
+</strong>
+
+</div>
+
+<div class="info-card">
+
+<small>
+Currency
+</small>
+
+<strong>
+INR
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+id="deposit"
+class="section"
+>
+
+<h2>
+Deposit Money
+</h2>
+
+<p class="subtitle">
+Add money to your account.
+</p>
+
+<div class="field">
+
+<label>
+Amount
+</label>
+
+<input
+id="depositAmount"
+type="number"
+min="1"
+step="0.01"
+placeholder="Enter amount"
+/>
+
+</div>
+
+<button
+class="primary-btn"
+onclick="deposit()"
+>
+Deposit
+</button>
+
+</section>
+
+
+<section
+id="withdraw"
+class="section"
+>
+
+<h2>
+Withdraw Money
+</h2>
+
+<p class="subtitle">
+Withdraw money from your account.
+</p>
+
+<div class="field">
+
+<label>
+Amount
+</label>
+
+<input
+id="withdrawAmount"
+type="number"
+min="1"
+step="0.01"
+placeholder="Enter amount"
+/>
+
+</div>
+
+<button
+class="primary-btn"
+onclick="withdraw()"
+>
+Withdraw
+</button>
+
+</section>
+
+
+<section
+id="transfer"
+class="section"
+>
+
+<h2>
+Transfer Funds
+</h2>
+
+<p class="subtitle">
+Transfer money to another account.
+</p>
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>
+Receiver Account
+</label>
+
+<input
+id="receiverAccount"
+type="text"
+value="10000002"
+/>
+
+</div>
+
+<div class="field">
+
+<label>
+Amount
+</label>
+
+<input
+id="transferAmount"
+type="number"
+min="1"
+step="0.01"
+placeholder="Enter amount"
+/>
+
+</div>
+
+</div>
+
+<button
+class="primary-btn"
+onclick="transfer()"
+>
+Transfer
+</button>
+
+</section>
+
+
+<section
+id="transactions"
+class="section"
+>
+
+<h2>
+Transaction History
+</h2>
+
+<p class="subtitle">
+View recent account transactions.
+</p>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Type
+</th>
+
+<th>
+Amount
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Description
+</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="transactionTable"
+>
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<div class="footer">
+
+Banking System • CodeAlpha C++ Programming Internship
+
+</div>
+
+</div>
+
+
+<script>
+
+let balance = 0;
+
+let transactions = [];
+
+
+function showSection(id, button) {
+
+document
+    .querySelectorAll(".section")
+    .forEach(section => {
+        section.classList.remove("active");
+    });
+
+document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+document
+    .getElementById(id)
+    .classList.add("active");
+
+button.classList.add("active");
+
+clearMessage();
+
+}
+
+
+function showMessage(text, type) {
+
+const message =
+    document.getElementById("message");
+
+message.textContent = text;
+
+message.className =
+    "message show " + type;
+
+}
+
+
+function clearMessage() {
+
+const message =
+    document.getElementById("message");
+
+message.className = "message";
+
+message.textContent = "";
+
+}
+
+
+function formatMoney(amount) {
+
+return "₹" +
+    amount.toLocaleString(
+        "en-IN",
+        {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }
+    );
+
+}
+
+
+function addTransaction(
+    type,
+    amount,
+    description
+) {
+
+transactions.unshift({
+
+    type: type,
+
+    amount: amount,
+
+    date: new Date()
+        .toLocaleDateString("en-IN"),
+
+    description: description
+
+});
+
+renderTransactions();
+
+}
+
+
+function updateBalance() {
+
+document
+    .getElementById("balance")
+    .textContent =
+    formatMoney(balance);
+
+}
+
+
+function deposit() {
+
+const input =
+    document.getElementById("depositAmount");
+
+const amount =
+    Number(input.value);
+
+
+if (!Number.isFinite(amount) || amount <= 0) {
+
+showMessage(
+    "Enter a valid positive amount.",
+    "error"
+);
+
+return;
+
+}
+
+
+balance += amount;
+
+addTransaction(
+    "Deposit",
+    amount,
+    "Money deposited"
+);
+
+updateBalance();
+
+input.value = "";
+
+showMessage(
+    "Deposit successful.",
+    "success"
+);
+
+}
+
+
+function withdraw() {
+
+const input =
+    document.getElementById("withdrawAmount");
+
+const amount =
+    Number(input.value);
+
+
+if (!Number.isFinite(amount) || amount <= 0) {
+
+showMessage(
+    "Enter a valid positive amount.",
+    "error"
+);
+
+return;
+
+}
+
+
+if (amount > balance) {
+
+showMessage(
+    "Insufficient balance.",
+    "error"
+);
+
+return;
+
+}
+
+
+balance -= amount;
+
+addTransaction(
+    "Withdrawal",
+    amount,
+    "Money withdrawn"
+);
+
+updateBalance();
+
+input.value = "";
+
+showMessage(
+    "Withdrawal successful.",
+    "success"
+);
+
+}
+
+
+function transfer() {
+
+const receiver =
+    document
+        .getElementById("receiverAccount")
+        .value
+        .trim();
+
+const input =
+    document.getElementById("transferAmount");
+
+const amount =
+    Number(input.value);
+
+
+if (!receiver) {
+
+showMessage(
+    "Enter a receiver account.",
+    "error"
+);
+
+return;
+
+}
+
+
+if (!Number.isFinite(amount) || amount <= 0) {
+
+showMessage(
+    "Enter a valid positive amount.",
+    "error"
+);
+
+return;
+
+}
+
+
+if (amount > balance) {
+
+showMessage(
+    "Insufficient balance.",
+    "error"
+);
+
+return;
+
+}
+
+
+balance -= amount;
+
+addTransaction(
+    "Transfer",
+    amount,
+    "Transfer to " + receiver
+);
+
+updateBalance();
+
+input.value = "";
+
+showMessage(
+    "Transfer successful.",
+    "success"
+);
+
+}
+
+
+function renderTransactions() {
+
+const table =
+    document.getElementById(
+        "transactionTable"
+    );
+
+table.innerHTML = "";
+
+
+if (transactions.length === 0) {
+
+table.innerHTML = `
+<tr>
+<td
+colspan="4"
+class="empty"
+>
+No transactions yet.
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+
+transactions.forEach(transaction => {
+
+const row =
+    document.createElement("tr");
+
+row.innerHTML = `
+
+<td>
+${transaction.type}
+</td>
+
+<td>
+${formatMoney(transaction.amount)}
+</td>
+
+<td>
+${transaction.date}
+</td>
+
+<td>
+${transaction.description}
+</td>
+
+`;
+
+table.appendChild(row);
+
+});
+
+}
+
+
+updateBalance();
+
+renderTransactions();
+
+</script>
+
+</body>
+
+</html>

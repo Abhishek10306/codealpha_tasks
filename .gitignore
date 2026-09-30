@@ -1,0 +1,15 @@
+# C++ compiled files
+*.exe
+*.out
+*.o
+*.obj
+
+# Task 2 local user database
+Task_2_Login_Registration_System/users.txt
+
+# IDE files
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
