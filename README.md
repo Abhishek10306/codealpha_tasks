@@ -8,35 +8,31 @@ This repository contains the C++ programming tasks completed as part of the **Co
 
 A C++ based CGPA calculator that calculates semester GPA and overall CGPA using course credits and grade points.
 
-**Features:**
-- Course and credit input
-- Grade point calculation
-- Semester GPA calculation
-- Overall CGPA calculation
-- Input validation
-
 **Concepts Used:**
-- C++ functions
+- C++ classes and functions
 - Vectors
 - Input validation
+- Grade-point calculation
 - Weighted average
 - CGPA calculation
+
+**Website:** Responsive HTML, CSS and JavaScript interface for entering courses and calculating GPA/CGPA.
 
 ---
 
 ### Task 2 — Login and Registration System
 
-A C++ login and registration system with file-based credential storage.
+A secure educational login and registration system implemented using C++.
 
 **Features:**
 - User registration
 - Username validation
 - Duplicate username detection
 - Password validation
-- Password hashing
-- Salt generation
+- Password hashing using SHA-256
+- Random salt generation
 - Login authentication
-- File-based storage
+- File-based credential storage
 
 **Concepts Used:**
 - File handling
@@ -46,7 +42,7 @@ A C++ login and registration system with file-based credential storage.
 - SHA-256 hashing
 - Input validation
 
-> **Note:** This project is intended for educational purposes. Production authentication systems should use established password-hashing libraries such as Argon2, bcrypt or scrypt.
+**Note:** This project is intended for educational purposes. Production authentication systems should use established password-hashing libraries such as Argon2, bcrypt or scrypt.
 
 ---
 
@@ -69,6 +65,8 @@ A C++ Sudoku solver using a recursive **backtracking algorithm**.
 - Backtracking
 - Functions
 - Object-oriented programming
+
+**Website:** Interactive Sudoku grid for entering and solving puzzles.
 
 ---
 
@@ -102,24 +100,9 @@ A console-based banking management system developed using object-oriented C++.
 - Transaction management
 - Input validation
 
+**Website:** Modern responsive banking dashboard demonstrating account information, deposits, withdrawals, transfers and transaction history.
+
 ---
-
-## 🌐 Web Interfaces
-
-Each task also includes a modern responsive HTML/CSS/JavaScript interface demonstrating the functionality of the corresponding C++ project.
-
-## 🛠️ Technologies Used
-
-- C++
-- C++17
-- HTML5
-- CSS3
-- JavaScript
-- Object-Oriented Programming
-- Recursion
-- Backtracking
-- File Handling
-- Data Structures and Algorithms
 
 ## 📁 Repository Structure
 
